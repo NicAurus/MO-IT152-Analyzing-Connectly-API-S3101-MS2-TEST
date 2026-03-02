@@ -1,5 +1,8 @@
 from django.urls import path
 from .views import UserListCreate, LoginView, ObtainAuthTokenView, PostListCreate, CommentListCreate, LikePost, CommentPost, GetComments, PostLikesCount
+from django.urls import path
+from .views import google_login
+from django.urls import path, include
 
 
 
@@ -13,4 +16,19 @@ urlpatterns = [
     path("posts/<int:id>/comment/", CommentPost.as_view(), name="comment-post"),
     path("posts/<int:id>/comments/", GetComments.as_view(), name="get-comments"),
     path("posts/<int:id>/likes/", PostLikesCount.as_view(), name="post-likes")
+    
+]
+
+
+
+
+urlpatterns = [
+    path('auth/google/login/', google_login),
+]
+
+
+
+urlpatterns = [
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
 ]
